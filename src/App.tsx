@@ -1,25 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {useEffect} from "react";
+import { Routes, Route } from "react-router-dom";
+import ArticlePage from "./pages/article-page/article-page.page";
+import HomePage from "./pages/home-page/home-page.page";
+import { useDispatch } from "react-redux";
+import { fetchNewsStart } from "./reducers/news/news.actions"
+
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchNewsStart())  
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage/>}/>
+        <Route path="/article/:id" element={<ArticlePage/>}/>
+      </Routes>
+    </>
   );
 }
 
