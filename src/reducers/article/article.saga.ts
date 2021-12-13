@@ -9,7 +9,6 @@ const getArticle = (id: string | number) => axios.get<IArticle>(`https://api.spa
 function* fetchArticleAsync(action: any) {
     try {
         const { data } = yield call(getArticle, action.payload);
-        console.log(data);
         yield put(fetchArticleSuccess(data))
     } catch (error: any) {
         yield put(fetchArticleError(error.message)) 
