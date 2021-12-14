@@ -19,14 +19,14 @@ const articleReducer = (state = initialState, action: ArticleAction): ArticleSta
         case ArticleActionTypes.FETCH_ARTICLE_SUCEES :
             return {
                 ...state,
-                isFetching: false,
-                article: action.payload
+                article: action.payload,
+                isFetching: false
             }
         case ArticleActionTypes.FETCH_ARTICLE_ERROR :
             return {
                 ...state,
-                isFetching: false,
-                error: action.payload
+                error: action.payload,
+                isFetching: false
             }
         default:
             return state

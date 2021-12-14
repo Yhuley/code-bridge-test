@@ -17,7 +17,7 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
     const navigate = useNavigate()
     
     return (
-        <Card sx={{ width: 320, height: 380 }}>          
+        <Card sx={{ width: 320, height: 340 }}>          
             <CardMedia
                 component="img"
                 height="140"
