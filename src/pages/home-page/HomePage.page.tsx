@@ -6,10 +6,9 @@ import { useTypedSelector } from "../../hooks/useTypedSelector";
 import Loading from "../../components/loading/Loading.component";
 import Error from "../../components/error/Error.component";
 import "./HomePage.styles.sass";
-import SearchIcon from '@mui/icons-material/Search';
-import Paper from '@mui/material/Paper';
-import InputBase from '@mui/material/InputBase';
-import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Search from "../../components/search/Search.component";
+import Divider from '@mui/material/Divider';
 
 const HomePage: FC = () => {
     const { news, isFetching, error } = useTypedSelector (state => state.newsReducer)
@@ -21,7 +20,10 @@ const HomePage: FC = () => {
     }, [])
 
     const filteredNews = useMemo(() => {
-        return news.filter(item => item.title.toLowerCase().includes(searchQuery.toLocaleLowerCase()))
+        const searchQueryArray = searchQuery.match(/\b(\w+)\b/g)
+        console.log(searchQueryArray)
+
+        return searchQueryArray ? news.filter(item => searchQueryArray.some(substring => item.title.toLowerCase().includes(substring.toLowerCase()))) : news
     }, [searchQuery, news])
 
     if (isFetching) return <Loading />
@@ -30,20 +32,17 @@ const HomePage: FC = () => {
 
     return (
         <div className="home-wrapper">
-            <Paper
-                component="form"
-                sx={{ p: '2px 4px', width: 450, height: 40 }}
-            >
-                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
-                    <SearchIcon />
-                </IconButton>
-                <InputBase
-                    sx={{ ml: 1, flex: 1 }}
-                    placeholder="search something..."
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                />
-            </Paper>
+            <Typography variant="subtitle2" gutterBottom component="div" className="bold-subtitle">
+                Filter by keywords        
+            </Typography>
+            <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+            {!!filteredNews.length && (
+                <Typography variant="subtitle2" gutterBottom component="div" className="bold-subtitle">
+                    {filteredNews.length > 1 ? "Results" : "Result"}: {filteredNews.length}
+                </Typography>
+                )
+            }
+            <Divider sx={{width: "100%"}} />
             <div className="news-wrapper">
                 {filteredNews.map(item => <NewsCard key={item.id} news={item}/>)}
             </div>            
