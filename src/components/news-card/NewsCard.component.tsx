@@ -17,7 +17,7 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
     const navigate = useNavigate()
     
     return (
-        <Card sx={{ width: 320, height: 340 }}>          
+        <Card className="news-card-container">          
             <CardMedia
                 component="img"
                 height="140"
@@ -25,7 +25,7 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
                 alt={news.title}
             />
             <CardContent>
-                <Typography sx={{margin:"10px 0"}}variant="body2" color="text.secondary" fontSize="small">
+                <Typography sx={{margin:"10px 0"}} variant="body2" color="text.secondary" fontSize="small">
                     <CalendarTodayIcon sx={{height: 14}} fontSize="small"/> {news.publishedAt}
                 </Typography>
                 <Typography gutterBottom fontSize="large" component="div">
@@ -35,10 +35,11 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
                     {news.summary}
                 </Typography>
                 <Typography 
-                    variant="body2" sx={{fontWeight: 'bold', display: "flex", alignItems: "center", cursor: "pointer"}}
+                    variant="body2"
+                    className="read-more-button"
                     onClick={() => navigate(`article/${news.id}`)}
                 >
-                    Read more<ArrowForwardIcon sx={{fontSize: 12}} />
+                    Read more&nbsp;<ArrowForwardIcon sx={{fontSize: 12}} />
                 </Typography>
             </CardContent>        
         </Card>
