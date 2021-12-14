@@ -25,15 +25,25 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
                 alt={news.title}
             />
             <CardContent>
-                <Typography sx={{margin:"10px 0"}} variant="body2" color="text.secondary" fontSize="small">
+                <Typography 
+                    sx={{margin:"10px 0"}}
+                    variant="body2" 
+                    color="text.secondary" 
+                    fontSize="small"
+                >
                     <CalendarTodayIcon sx={{height: 14}} fontSize="small"/> {news.publishedAt}
                 </Typography>
-                <Typography gutterBottom fontSize="large" component="div">
-                    {news.title}
-                </Typography>
-                <Typography gutterBottom fontSize="small" color="text.secondary" className="summary-card-text">
-                    {news.summary}
-                </Typography>
+                <Typography 
+                    gutterBottom fontSize="large" 
+                    component="div"
+                    dangerouslySetInnerHTML={{__html: (news.title)}}
+                />
+                <Typography 
+                    gutterBottom fontSize="small"
+                    color="text.secondary"
+                    className="summary-card-text"
+                    dangerouslySetInnerHTML={{__html: (news.summary)}}
+                />
                 <Typography 
                     variant="body2"
                     className="read-more-button"

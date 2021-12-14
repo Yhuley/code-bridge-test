@@ -21,9 +21,35 @@ const HomePage: FC = () => {
 
     const filteredNews = useMemo(() => {
         const searchQueryArray = searchQuery.match(/\b(\w+)\b/g)
-        console.log(searchQueryArray)
 
-        return searchQueryArray ? news.filter(item => searchQueryArray.some(substring => item.title.toLowerCase().includes(substring.toLowerCase()))) : news
+        const findNews =  searchQueryArray ? news.filter(item => searchQueryArray.some(substring => item.title.toLowerCase().includes(substring.toLowerCase()) || item.summary.toLowerCase().includes(substring.toLowerCase()))) : news
+
+        let newTitle = ""
+        let newSummary = ""
+
+        const highlitedNews = findNews.map(item => {
+            searchQueryArray?.map(substring => { 
+                newTitle = item.title.replace(
+                    new RegExp(substring, 'gi'),
+                    (match: any) => 
+                        `<mark style="backgroundColor: yellow">${match}</mark>`
+                )
+
+                newSummary = item.summary.replace(
+                    new RegExp(substring, 'gi'),
+                    (match: any) => 
+                        `<mark style="backgroundColor: yellow">${match}</mark>`
+                )
+            })      
+
+            return {
+                ...item,
+                title: newTitle ? newTitle : item.title,
+                summary: newSummary ? newSummary : item.summary
+            }
+        })
+
+        return highlitedNews
     }, [searchQuery, news])
 
     if (isFetching) return <Loading />
