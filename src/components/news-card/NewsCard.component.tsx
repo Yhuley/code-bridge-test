@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -23,6 +23,7 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
                 height="140"
                 image={news.imageUrl}
                 alt={news.title}
+                onError={(e: SyntheticEvent<HTMLImageElement>) => e.target = null}
             />
             <CardContent>
                 <Typography 

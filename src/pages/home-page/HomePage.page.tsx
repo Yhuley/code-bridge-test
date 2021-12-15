@@ -24,7 +24,7 @@ const HomePage: FC = () => {
 
         const regexFromMyArray = searchQueryArray ? new RegExp(searchQueryArray.join("|"), 'gi') : /(?:)/
 
-        const findNews =  searchQueryArray ? news.filter(item => searchQueryArray.some(substring => item.title.toLowerCase().includes(substring.toLowerCase()) || item.summary.toLowerCase().includes(substring.toLowerCase()))) : news
+        const findNews =  searchQueryArray ? news.filter(item => item.title.match(regexFromMyArray) || item.summary.match(regexFromMyArray)) : news
 
         const highlitedNews = findNews.map(item => {         
             const newTitle = item.title.replace(
