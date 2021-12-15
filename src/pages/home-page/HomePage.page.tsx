@@ -26,25 +26,18 @@ const HomePage: FC = () => {
 
         const findNews =  searchQueryArray ? news.filter(item => searchQueryArray.some(substring => item.title.toLowerCase().includes(substring.toLowerCase()) || item.summary.toLowerCase().includes(substring.toLowerCase()))) : news
 
-            const highlitedNews = findNews.map(item => {         
-                let newTitle = ""
-                let newSummary = ""
-                
-                searchQueryArray?.map(substring => {
+        const highlitedNews = findNews.map(item => {         
+            const newTitle = item.title.replace(
+                regexFromMyArray,
+                (match: any) => 
+                    `<mark style="backgroundColor: yellow">${match}</mark>`
+            )
                     
-                    newTitle = item.title.replace(
-                        regexFromMyArray,
-                        (match: any) => 
-                            `<mark style="backgroundColor: yellow">${match}</mark>`
-                    )
-                       
-                    newSummary = item.summary.replace(
-                        regexFromMyArray,
-                    (match: any) => 
-                        `<mark style="backgroundColor: yellow">${match}</mark>`
-                    )
-                })    
-
+            const newSummary = item.summary.replace(
+                regexFromMyArray,
+            (match: any) => 
+                `<mark style="backgroundColor: yellow">${match}</mark>`
+            )   
 
             return {
                 ...item,
