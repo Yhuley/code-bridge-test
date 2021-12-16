@@ -24,9 +24,22 @@ const HomePage: FC = () => {
 
         const regexFromMyArray = searchQueryArray ? new RegExp(searchQueryArray.join("|"), 'gi') : /(?:)/
 
-        const findNews =  searchQueryArray ? news.filter(item => item.title.match(regexFromMyArray) || item.summary.match(regexFromMyArray)) : news
+        const findNews =  searchQueryArray ? news.filter(item =>  item.title.match(regexFromMyArray) || item.summary.match(regexFromMyArray)) : news
+        
 
-        const highlitedNews = findNews.map(item => {         
+        const mutedArray =  searchQueryArray ? findNews.filter(item => {
+            item.titleCoincidences = 0
+            item.summaryCoincidences = 0
+            
+            if(!!item.title.match(regexFromMyArray)) item.titleCoincidences += item.title.match(regexFromMyArray).length
+            if(!!item.summary.match(regexFromMyArray)) item.summaryCoincidences += item.summary.match(regexFromMyArray).length
+
+            return item
+        }) : findNews
+
+        const sortedArray = mutedArray.sort((a, b) =>  b.titleCoincidences - a.titleCoincidences + b.titleCoincidences - a.titleCoincidences)
+
+        const highlitedNews = sortedArray.map(item => {         
             const newTitle = item.title.replace(
                 regexFromMyArray,
                 (match: any) => 

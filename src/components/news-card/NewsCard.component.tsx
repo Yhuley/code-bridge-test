@@ -1,4 +1,4 @@
-import { FC, SyntheticEvent } from "react";
+import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,17 +14,28 @@ interface NewsCardProps {
 }
 
 const NewsCard: FC<NewsCardProps> = ({ news }) => {
+    const [isImgLoadError, setIsImgLoadError] = useState<boolean>(false);
     const navigate = useNavigate()
     
     return (
-        <Card className="news-card-container">          
-            <CardMedia
-                component="img"
-                height="140"
-                image={news.imageUrl}
-                alt={news.title}
-                onError={(e: SyntheticEvent<HTMLImageElement>) => e.target = null}
-            />
+        <Card className="news-card-container">
+            {isImgLoadError ?
+                (<Typography  
+                    variant="body2"
+                    className="error-img-container"
+                >
+                    photo not found
+                </Typography >)
+                : (
+                    <CardMedia
+                        component="img"
+                        height="140"
+                        image={news.imageUrl}
+                        alt={`${news.id}`}
+                        onError={() => setIsImgLoadError(true)}   
+                    />
+                )
+            }       
             <CardContent>
                 <Typography 
                     sx={{margin:"10px 0"}}

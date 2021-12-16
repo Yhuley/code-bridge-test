@@ -18,7 +18,11 @@ const ArticleCard: FC<ArticleCardProps> = ({ article }) => {
 
     return (
         <div className="article-container">
-            <div className="article-background-image" style={{ backgroundImage: `url(${article.imageUrl})`}} />          
+            <div 
+                className="article-background-image"
+                style={{ backgroundImage: `url(${article.imageUrl}`}}   
+            />  
+      
             <Paper className="article" elevation={4}>
                 <Typography align="center" variant="h5">{article.title}</Typography>
                 <Typography align="center" variant="body1">{article.summary}</Typography>
@@ -27,7 +31,7 @@ const ArticleCard: FC<ArticleCardProps> = ({ article }) => {
                     variant="body2"
                     onClick={() => navigate(-1)}
                     className="go-back-button"
-                >
+            >
                     <ArrowBackIcon sx={{fontSize: 12}} />&nbsp;Back to homepage
             </Typography>
         </div>
