@@ -35,13 +35,18 @@ const HomePage: FC = () => {
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             />
-            {!!filteredNews.length && (
-                <Typography variant="subtitle2" gutterBottom component="div" className="bold-subtitle">
-                    {filteredNews.length > 1 ? "Results" : "Result"}: {filteredNews.length}
+            {!!filteredNews.length ? (
+                <div style={{width: "100%"}}>
+                    <Typography variant="subtitle2" gutterBottom component="div" className="bold-subtitle">
+                        {filteredNews.length > 1 ? "Results" : "Result"}: {filteredNews.length}
+                    </Typography>
+                    <Divider sx={{width: "100%"}} />
+                </div> ) : (
+                <Typography variant="subtitle2" gutterBottom component="p" className="error-message" >
+                    There are no news
                 </Typography>
                 )
             }
-            <Divider sx={{width: "100%"}} />
             <div className="news-wrapper">
                 {filteredNews.map(item => <NewsCard key={item.id} news={item}/>)}
             </div>            

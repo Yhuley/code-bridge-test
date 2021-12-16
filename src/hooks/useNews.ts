@@ -1,8 +1,7 @@
 import { useMemo } from "react";
-import { INews } from "../types/news";
 
 export const useNews = (searchQuery: string, news: any[]) => {
-    const filteredNews = useMemo(() => {
+    return useMemo(() => {
         const searchQueryArray = searchQuery.match(/\b(\w+)\b/g)
 
         const regexFromQueryArray = searchQueryArray ? new RegExp(searchQueryArray.join("|"), 'gi') : /(?:)/
@@ -44,6 +43,4 @@ export const useNews = (searchQuery: string, news: any[]) => {
 
         return highlitedNews
     }, [searchQuery, news])
-
-    return filteredNews
 }
