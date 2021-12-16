@@ -37,7 +37,7 @@ const HomePage: FC = () => {
             return item
         }) : findNews
 
-        const sortedArray = mutedArray.sort((a, b) =>  b.titleCoincidences - a.titleCoincidences + b.titleCoincidences - a.titleCoincidences)
+        const sortedArray = mutedArray.sort((a, b) =>  b.titleCoincidences - a.titleCoincidences || b.summaryCoincidences - a.summaryCoincidences)
 
         const highlitedNews = sortedArray.map(item => {         
             const newTitle = item.title.replace(
