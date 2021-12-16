@@ -8,6 +8,7 @@ import { INews } from "../../types/news"
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import "./NewsCard.styles.sass";
+import Loading from "../loading/Loading.component";
 
 interface NewsCardProps {
     news: INews
@@ -15,10 +16,12 @@ interface NewsCardProps {
 
 const NewsCard: FC<NewsCardProps> = ({ news }) => {
     const [isImgLoadError, setIsImgLoadError] = useState<boolean>(false);
+    const [isImgLoad, setIsImgLoad] = useState<boolean>(true);
     const navigate = useNavigate()
     
     return (
         <Card className="news-card-container">
+            {isImgLoad && <Loading containerHeight={"140px"} />}
             {isImgLoadError ?
                 (<Typography  
                     variant="body2"
@@ -32,7 +35,11 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
                         height="140"
                         image={news.imageUrl}
                         alt={`${news.id}`}
-                        onError={() => setIsImgLoadError(true)}   
+                        onLoad={() => setIsImgLoad(false)}
+                        onError={() => {
+                            setIsImgLoadError(true)
+                            setIsImgLoad(false)
+                        }}
                     />
                 )
             }       
@@ -43,7 +50,7 @@ const NewsCard: FC<NewsCardProps> = ({ news }) => {
                     color="text.secondary" 
                     fontSize="small"
                 >
-                    <CalendarTodayIcon sx={{height: 14}} fontSize="small"/> {news.publishedAt}
+                    <CalendarTodayIcon sx={{height: 14}} fontSize="small"/> {news.publishedAt.split("T")[0]}
                 </Typography>
                 <Typography 
                     gutterBottom fontSize="large" 

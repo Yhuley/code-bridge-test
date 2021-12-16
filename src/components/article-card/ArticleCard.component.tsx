@@ -14,7 +14,7 @@ interface ArticleCardProps {
 const ArticleCard: FC<ArticleCardProps> = ({ article }) => {
     const navigate = useNavigate()
     
-    if (!article) return <Loading />
+    if (!article) return <Loading containerHeight="90vh" />
 
     return (
         <div className="article-container">

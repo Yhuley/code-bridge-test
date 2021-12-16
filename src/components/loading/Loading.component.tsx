@@ -1,9 +1,14 @@
+import { FC } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import "./Loading.styles.sass";
 
-const Loading = () => (
-    <Box className="loading-container">
+interface LoadingProps {
+    containerHeight: any;
+}
+
+const Loading: FC<LoadingProps> = ({ containerHeight }) => (
+    <Box className="loading-container" sx={{height: `${containerHeight}`}}>
        <CircularProgress />
     </Box>
 )

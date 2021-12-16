@@ -22,7 +22,7 @@ const HomePage: FC = () => {
 
     const filteredNews = useNews(searchQuery, news)
 
-    if (isFetching) return <Loading />
+    if (isFetching) return <Loading containerHeight={"90vh"} />
 
     if (error) return <Error error={error} />
 
